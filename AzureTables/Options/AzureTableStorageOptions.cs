@@ -1,9 +1,8 @@
-﻿namespace AzureTables
+﻿namespace AzureTables.Options
 {
     public class AzureTableStorageOptions
     {
         public const string AzureTableStorage = "AzureTableStorage";
-
 
         public string StorageUri { get; set; } = string.Empty;
 

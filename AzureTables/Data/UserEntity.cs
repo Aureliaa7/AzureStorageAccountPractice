@@ -14,6 +14,8 @@ namespace AzureTables.Data
 
         public string Country { get; set; }
 
+        public string ImageName { get; set; }
+
 
         // Added by default when implementing ITableEntity
         public string PartitionKey { get; set; }

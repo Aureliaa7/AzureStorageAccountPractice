@@ -1,5 +1,6 @@
-using AzureTables;
-using AzureTables.Data;
+using AzureTables.Options;
+using AzureTables.Services;
+using AzureTables.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,8 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IBlobStorageService, BlobStorageService>();
 
 builder.Services.Configure<AzureTableStorageOptions>(builder.Configuration.GetSection(AzureTableStorageOptions.AzureTableStorage));
+builder.Services.Configure<AzureContainerOptions>(builder.Configuration.GetSection(AzureContainerOptions.AzureContainerStorage));
 
 var app = builder.Build();
 

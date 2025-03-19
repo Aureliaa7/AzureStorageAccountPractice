@@ -1,8 +1,11 @@
 ﻿using Azure;
 using Azure.Data.Tables;
+using AzureTables.Data;
+using AzureTables.Options;
+using AzureTables.Services.Interfaces;
 using Microsoft.Extensions.Options;
 
-namespace AzureTables.Data
+namespace AzureTables.Services
 {
     public class UserService : IUserService
     {

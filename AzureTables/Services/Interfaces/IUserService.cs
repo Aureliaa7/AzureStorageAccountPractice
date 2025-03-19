@@ -1,4 +1,6 @@
-﻿namespace AzureTables.Data
+﻿using AzureTables.Data;
+
+namespace AzureTables.Services.Interfaces
 {
     public interface IUserService
     {
