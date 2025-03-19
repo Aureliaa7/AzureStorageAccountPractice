@@ -1,7 +1,14 @@
+using AzureTables;
+using AzureTables.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.Configure<AzureTableStorageOptions>(builder.Configuration.GetSection(AzureTableStorageOptions.AzureTableStorage));
 
 var app = builder.Build();
 
