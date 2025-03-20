@@ -1,4 +1,6 @@
-﻿using AzureTables.Data;
+﻿using AzureStorageServices.Models;
+using AzureStorageServices.Services.Interfaces;
+using AzureTables.Data;
 using AzureTables.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +10,13 @@ namespace AzureTables.Controllers
     {
         private readonly IUserService userService;
         private readonly IBlobStorageService blobStorageService;
+        private readonly IQueueService queueService;
 
-        public UserController(IUserService userService, IBlobStorageService blobStorageService)
+        public UserController(IUserService userService, IBlobStorageService blobStorageService, IQueueService queueService)
         {
             this.userService = userService;
             this.blobStorageService = blobStorageService;
+            this.queueService = queueService;
         }
 
         // GET: UserController
@@ -58,11 +62,17 @@ namespace AzureTables.Controllers
                 }
 
                 await userService.UpsertAsync(user);
+                await queueService.SendMessageAsync(new EmailMessage
+                {
+                    EmailAddress = user.Email,
+                    TimeStamp = DateTime.UtcNow,
+                    Message = "Welcome to the platform!"
+                });
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return View(ex.Message);
             }
         }
 

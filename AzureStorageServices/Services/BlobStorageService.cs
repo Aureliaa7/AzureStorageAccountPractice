@@ -32,6 +32,11 @@ namespace AzureTables.Services
 
         public async Task<string> GetUrlAsync(string imageName)
         {
+            if (string.IsNullOrEmpty(imageName))
+            {
+                return null;
+            }
+
             BlobContainerClient containerClient = await GetBlobContainerClientAsync();
             BlobClient blob = containerClient.GetBlobClient(imageName);
 

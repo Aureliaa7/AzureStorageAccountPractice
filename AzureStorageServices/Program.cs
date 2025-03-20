@@ -1,3 +1,6 @@
+using AzureStorageServices.Options;
+using AzureStorageServices.Services;
+using AzureStorageServices.Services.Interfaces;
 using AzureTables.Options;
 using AzureTables.Services;
 using AzureTables.Services.Interfaces;
@@ -9,9 +12,11 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBlobStorageService, BlobStorageService>();
+builder.Services.AddScoped<IQueueService, QueueService>();
 
 builder.Services.Configure<AzureTableStorageOptions>(builder.Configuration.GetSection(AzureTableStorageOptions.AzureTableStorage));
 builder.Services.Configure<AzureContainerOptions>(builder.Configuration.GetSection(AzureContainerOptions.AzureContainerStorage));
+builder.Services.Configure<AzureQueueStorageOptions>(builder.Configuration.GetSection(AzureQueueStorageOptions.AzureQueueStorage));
 
 var app = builder.Build();
 
